@@ -32,7 +32,7 @@ import sys
 import time
 import random
 
-import StringIO
+from io import StringIO
 
 import codecs
 import json
@@ -838,7 +838,7 @@ class MmdViewerApp(ShowBase):
     if os.path.altsep and 'lastModel' in self.appConfig:
       self.appConfig['lastModel'] = self.appConfig['lastModel'].replace(os.path.sep, os.path.altsep)
     self.appConfig['recent'] = self.appConfig['recent'][:20]
-    for idx in xrange(len(self.appConfig['recent'])):
+    for idx in range(len(self.appConfig['recent'])):
       if os.path.altsep:
         self.appConfig['recent'][idx] = self.appConfig['recent'][idx].replace(os.path.sep, os.path.altsep)
 
@@ -862,7 +862,7 @@ class MmdViewerApp(ShowBase):
     # Create Axis Grid Plane View Menu
     #
     self.menuPlane = wx.Menu()
-    for idx in xrange(self.frame.menuView.GetMenuItemCount()):
+    for idx in range(self.frame.menuView.GetMenuItemCount()):
       item = self.frame.menuView.FindItemByPosition(idx)
       text = item.GetText()
       help = item.GetHelp()

@@ -192,7 +192,7 @@ class ConvertApp(QtGui.QMainWindow):
       item.setBackgroundColor(QtGui.QColor(0, 200, 0, 32))
       self.ui.lstItems.addItem(item)
 
-    for idx in xrange(idx, self.ui.lstItems.count()):
+    for idx in range(idx, self.ui.lstItems.count()):
       item = self.ui.lstItems.item(idx)
       path = unicode(item.text())
       if os.path.isfile(path):
@@ -302,7 +302,7 @@ class ConvertApp(QtGui.QMainWindow):
     pass
 
   def btnConvertAll(self):
-    for idx in xrange(0, self.ui.lstItems.count()):
+    for idx in range(0, self.ui.lstItems.count()):
       item = self.ui.lstItems.item(idx)
       path = unicode(item.text())
       if os.path.isfile(path):

@@ -29,14 +29,14 @@ from __future__ import division
 import os
 import sys
 
-import StringIO
+from io import StringIO
 
 import codecs
 
 from panda3d.core import *
 from panda3d.egg import *
 
-from common import *
+from .common import *
 
 from pymeshio import pmd
 from pymeshio.pmd import reader as pmdReader
@@ -334,7 +334,7 @@ def loadPmdBody(pmd_model, alpha=True):
     matName = u'mat_%04d' % matIndex
     prim = GeomTriangles(Geom.UHStatic)
     log(u'Loading Node : %s' % matName)
-    for idx in xrange(vIndex, vIndex+mat.vertex_count, 3):
+    for idx in range(vIndex, vIndex+mat.vertex_count, 3):
       # flip trig-face for inverted axis-y/axis-z
       prim.addVertices(pmd_model.indices[idx+2], pmd_model.indices[idx+1], pmd_model.indices[idx+0])
 
@@ -708,7 +708,7 @@ def loadPmdMorph(pmd_model):
 
     prim = GeomPoints(Geom.UHDynamic)
     vdata.setNumRows(len(morph.pos_list))
-    for idx in xrange(len(morph.pos_list)):
+    for idx in range(len(morph.pos_list)):
       i = morphBase.indices[morph.indices[idx]]
       v = V2V(pmd_model.vertices[i].pos)
       o = V2V(morph.pos_list[idx])

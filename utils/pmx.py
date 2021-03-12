@@ -29,7 +29,7 @@ from __future__ import division
 import os
 import sys
 
-import StringIO
+from io import StringIO
 
 import codecs
 
@@ -55,7 +55,7 @@ from panda3d.bullet import BulletConeTwistConstraint
 
 from direct.actor.Actor import Actor
 
-from common import *
+from .common import *
 
 from pymeshio import pmx
 from pymeshio.pmx import reader as pmxReader
@@ -404,7 +404,7 @@ def loadPmxBody(pmx_model, alpha=True):
     #
     prim = GeomTriangles(Geom.UHDynamic)
     log(u'Loading Polygons %03d: %s' % (matIndex, mat.name), force=True)
-    for idx in xrange(vIndex, vIndex+mat.vertex_count, 3):
+    for idx in range(vIndex, vIndex+mat.vertex_count, 3):
       # flip trig-face for inverted axis-y/axis-z
       prim.addVertices(pmx_model.indices[idx+2], pmx_model.indices[idx+1], pmx_model.indices[idx+0])
     prim.closePrimitive()
@@ -529,7 +529,8 @@ def loadPmxBody(pmx_model, alpha=True):
         #
         texImage = texMain.getRamImageAs('RGB')
         pixel_LT = texImage.getData()[0:3]
-        pr,pg,pb = ord(pixel_LT[0]), ord(pixel_LT[1]), ord(pixel_LT[2])
+        # pr,pg,pb = ord(pixel_LT[0]), ord(pixel_LT[1]), ord(pixel_LT[2])
+        pr,pg,pb = pixel_LT[0], pixel_LT[1], pixel_LT[2]
         print('rgb(%d, %d, %d)' % (pr, pg, pb))
         if pr == mat.diffuse_color.r*255 and pg == mat.diffuse_color.g*255 and pb == mat.diffuse_color.b*255:
           print('--> Left-Top Pixel is Diffuse')
@@ -928,7 +929,7 @@ def loadPmxMorph(pmx_model):
 
     if   morph.morph_type == 0: # group morph
       morphData = []
-      for idx in xrange(len(morph.offsets)):
+      for idx in range(len(morph.offsets)):
         offset = morph.offsets[idx]
         o = offset
         morphData.append((o.morph_index, o.value))
@@ -944,7 +945,7 @@ def loadPmxMorph(pmx_model):
 
       prim = GeomPoints(Geom.UHDynamic)
       vdata.setNumRows(len(morph.offsets))
-      for idx in xrange(len(morph.offsets)):
+      for idx in range(len(morph.offsets)):
         offset = morph.offsets[idx]
         v = V2V(pmx_model.vertices[offset.vertex_index].position)
         o = V2V(offset.position_offset)
@@ -971,7 +972,7 @@ def loadPmxMorph(pmx_model):
       node.addGeom(geom)
 
       egg = EggData()
-      egg.read(StringStream('\n'.join(morphEggText)))
+      egg.read(StringStream(str.encode('\n'.join(morphEggText))))
       action = loadEggData(egg).getChild(0)
       node.addChild(action)
       pass
@@ -995,7 +996,7 @@ def loadPmxMorph(pmx_model):
       pass
     elif morph.morph_type == 8: # material morph
       morphData = []
-      for idx in xrange(len(morph.data)):
+      for idx in range(len(morph.data)):
         o = morph.data[idx]
         np = NodePath(u'mat_%04d' % (idx))
         material = Material(u'%s_%04d' % (morph.name, idx))

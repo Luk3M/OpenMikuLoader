@@ -32,7 +32,7 @@ import sys
 import math
 import cmath
 
-import StringIO
+from io import StringIO
 
 import codecs
 
@@ -171,7 +171,7 @@ def pmx2egg(pmx):
   dxyz = dict()
   for morph in pmx.morphs:
     if morph.morph_type == 1:
-      for idx in xrange(len(morph.offsets)):
+      for idx in range(len(morph.offsets)):
         offset = morph.offsets[idx]
         v = pmx.vertices[offset.vertex_index].position
         o = offset.position_offset
@@ -211,7 +211,7 @@ def pmx2egg(pmx):
   lines.append('  <Group> "Body" {')
   for m in pmx.materials:
     lines.append('    <Group> "%s" {' % m.name)
-    for idx in xrange(vIndex, vIndex+m.vertex_count, 3):
+    for idx in range(vIndex, vIndex+m.vertex_count, 3):
       lines.append('      <Polygon> {')
       lines.append('        <VertexRef> { %d %d %d <Ref> { %s } }' % ( pmx.indices[idx], pmx.indices[idx+1], pmx.indices[idx+2], pmx.name))
       lines.append('        <MRef> { "%s" }' % (m.name))

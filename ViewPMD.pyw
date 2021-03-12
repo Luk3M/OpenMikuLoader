@@ -35,7 +35,7 @@ import sys
 import time
 import random
 
-import StringIO
+from io import StringIO
 
 WIN_SIZE = (800, 800)
 
@@ -130,9 +130,9 @@ class Stage(object):
         gridnodepath = loader.loadModel(axisStage)
         gridnodepath = gridnodepath.getChild(0)
       except:
-        gridnodepath = CreateAxis()
+        gridnodepath = CreateAxis(axisStage)
     else:
-      gridnodepath = CreateAxis()
+      gridnodepath = CreateAxis(axisStage)
 
     gridnodepath.reparentTo(render)
     pass
@@ -683,7 +683,7 @@ class MmdViewerApp(ShowBase):
 
     self.appConfig['lastModel'] = self.appConfig['lastModel'].replace('\\', '/')
     self.appConfig['recent'] = self.appConfig['recent'][:10]
-    for idx in xrange(len(self.appConfig['recent'])):
+    for idx in range(len(self.appConfig['recent'])):
       self.appConfig['recent'][idx] = self.appConfig['recent'][idx].replace('\\', '/')
 
     with codecs.open(fn, 'w', encoding='utf8') as f:
@@ -923,8 +923,9 @@ class MmdViewerApp(ShowBase):
   def OnOpenFileTest(self, event):
     # p3dnode = self.loadModel('models/meiko/meiko.pmx')
     modellist = [u'./models/meiko/meiko.pmx', u'panda', u'./models/apimiku/Miku long hair.pmx']
+    # modellist = [u'./models/meiko.pmx']
     # p3dnode = self.loadModel(modellist[self.modelidx % 3])
-    p3dnode = self.loadModel(modellist[2])
+    p3dnode = self.loadModel(modellist[0])
     self.modelidx += 1
 
     # p3dnode = self.loadModel('panda')
@@ -1152,9 +1153,10 @@ def myWink(value, model, delay):
 if __name__ == '__main__':
   app = MmdViewerApp()
 
-  mmdFile = u'./models/apimiku/Miku long hair.pmx'
-  mmdFile = u'./models/cupidmiku/Cupid Miku.pmx'
-  mmdFile = u'./models/meiko/meiko.pmx'
+  # mmdFile = u'./models/apimiku/Miku long hair.pmx'
+  # mmdFile = u'./models/cupidmiku/Cupid Miku.pmx'
+  # mmdFile = u'./models/meiko/meiko.pmx'
+  mmdFile = "models/MEIKO.pmx"
 
   if len(sys.argv) > 1:
     if len(sys.argv[1]) > 0:

@@ -1,8 +1,3 @@
-alice
-apimiku
-cupidmiku
-Meiko
-NekoMiku
 /*.txt
 /models
 *.pyc
@@ -11,3 +6,4 @@ NekoMiku
 /_misc
 /wxMmdModelViewer.config
 /*.zip
+.vscode
